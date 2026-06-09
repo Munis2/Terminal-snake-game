@@ -26,7 +26,7 @@ class snake:
 class apple:
     
     def cordinate(self):
-        self.row_coordinate = random.randint(1,8)
+        self.row_coordinate = random.randint(1,7)
         self.col_coordinate = random.randint(1,8)
   
         cords=[self.row_coordinate,self.col_coordinate]
@@ -41,9 +41,9 @@ class game:
         self.snake1 = snake([[1,1],[1,2],[1,3],[1,4]])
         
         self.matrix_border = [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],
-                         [1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],
-                         [9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8],[9,9],
-                         [1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[7,7],[8,7]]
+                              [1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],
+                              [1,9],[2,9],[3,9],[4,9],[5,9],[6,9],[7,9],[8,9],[9,9],
+                              [9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8],[9,9]]
         
         # self.snake1 = snake([[1,1],[1,2],[1,3],[1,4]],direction_input)
 
@@ -76,8 +76,11 @@ class game:
         else:
             print("invalid input")
             
-        
-        if self.head in self.snake1.body[:-1] or self.head in self.matrix_border:
+        # for some reason the conditions below wont merger together in something like 
+        # if self.head in self.snake1.body[:-1] or self.head in self.matrix_border:
+        if self.head in self.snake1.body[:-1] :
+            return False
+        elif self.head in self.matrix_border:
             return False
         elif self.head == self.apple_coordinate:
             self.snake1.body = self.snake1.body + [self.head]
@@ -112,7 +115,7 @@ class game:
         
         for i in range(len(matrix)):
             for j in range(len(matrix[i])):
-                if [i,j] == self.apple_coordinate and [i,j] not in self.snake1.body and [i,j] not in self.matrix_border:
+                if [i,j] == self.apple_coordinate and [i,j] not in self.snake1.body:
                     print("A", end=" ")
                 elif [i,j] == head:
                     print("X", end=" ")
